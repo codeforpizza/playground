@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -18,9 +20,22 @@ var (
 )
 
 func main() {
-	requestCount()
+	// simple flag for port change
+	var httpPort string
+	flag.StringVar(&httpPort, "httpPort", ":3030", "http port for golang playground")
+	flag.Parse()
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		requestCount()
+		fmt.Fprint(w, "request recorded")
+	})
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(":3030", nil)
+
+	fmt.Printf("Server running at :%s", httpPort)
+	err := http.ListenAndServe(httpPort, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func requestCount() {

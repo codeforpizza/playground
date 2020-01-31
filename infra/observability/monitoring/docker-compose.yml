@@ -1,0 +1,28 @@
+version: '3'
+services:
+  playground-golang:
+      image: playground:golang
+      ports:
+      - 3030:3030
+      entrypoint:
+        - ./playground
+        - -httpPort
+        - :3030
+  playground-golang-2:
+      image: playground:golang
+      ports:
+      - 3031:3031
+      entrypoint:
+        - ./playground
+        - -httpPort
+        - :3031
+  prometheus:
+      image: prom/prometheus 
+      ports:
+      - 9090:9090
+      volumes:
+        - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+      image: grafana/grafana
+      ports:
+      - 3000:3000
