@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	go build -v -o bin/playground cmd/playground/main.go
+	go build -v -mod=mod -o bin/playground cmd/playground/main.go
 
 .PHONY: docker-build
 docker-build:
