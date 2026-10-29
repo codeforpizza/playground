@@ -4,6 +4,7 @@ build:
 
 .PHONY: docker-build
 docker-build:
+	go build -v -mod=mod -o bin/playground cmd/playground/main.go
 	docker build . -t playground:golang
 
 .PHONY: run
