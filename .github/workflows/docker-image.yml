@@ -17,9 +17,6 @@ jobs:
 
       - name: Set up Go
         uses: actions/setup-go@v7.0.0
-        with:
-          go-version-file: 'go.mod'
-          cache: true
 
       - name: Build Go
         run: make build
